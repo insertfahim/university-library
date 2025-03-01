@@ -3,33 +3,33 @@ import { Client as QStashClient, resend } from "@upstash/qstash";
 import config from "@/lib/config";
 
 export const workflowClient = new WorkflowClient({
-  baseUrl: config.env.upstash.qstashUrl,
-  token: config.env.upstash.qstashToken,
+    baseUrl: config.env.upstash.qstashUrl,
+    token: config.env.upstash.qstashToken,
 });
 
 const qstashClient = new QStashClient({
-  token: config.env.upstash.qstashToken,
+    token: config.env.upstash.qstashToken,
 });
 
 export const sendEmail = async ({
-  email,
-  subject,
-  message,
+    email,
+    subject,
+    message,
 }: {
-  email: string;
-  subject: string;
-  message: string;
+    email: string;
+    subject: string;
+    message: string;
 }) => {
-  await qstashClient.publishJSON({
-    api: {
-      name: "email",
-      provider: resend({ token: config.env.resendToken }),
-    },
-    body: {
-      from: "JS Mastery <contact@adrianjsmastery.com>",
-      to: [email],
-      subject,
-      html: message,
-    },
-  });
+    await qstashClient.publishJSON({
+        api: {
+            name: "email",
+            provider: resend({ token: config.env.resendToken }),
+        },
+        body: {
+            from: "Fahim <hello.fahimbuilds.me>",
+            to: [email],
+            subject,
+            html: message,
+        },
+    });
 };
